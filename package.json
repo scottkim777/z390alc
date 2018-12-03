@@ -1,0 +1,93 @@
+{
+	"name": "z390-alc",
+	"displayName": "z390 Assembler",
+	"description": "Support for z390 Assemblers in Visual Studio Code",
+	"version": "1.0.0",
+	"icon": "sklogo.png",
+	"publisher": "SKIM",
+	"categories": [
+		"Programming Languages"
+	],
+	"keywords": [
+		"assembly",
+		"assembler"
+	],
+	"homepage": "https://github.com/skim/z390-alc",
+	"bugs": "https://github.com/skim/z390-alc/bugs",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/skim/z390-alc-vscode.git"
+	},
+	"license": "NONE",
+	"engines": {
+		"vscode": "^1.20.0"
+	},
+	"activationEvents": [
+		"onLanguage:z390-alc"
+	],
+	"main": "./out/src/extension",
+	"contributes": {
+		"problemMatchers": [
+			{
+				"name": "errmatcher",
+				"owner": "z390-alc",
+				"fileLocation": [
+					"relative",
+					"${workspaceFolder}"
+				],
+				"pattern": [
+					{
+						"regexp": "^> > >(.*)\\(([0-9]+)\\): (error|warning):\\s+(.*)(\\x1B\\[K)?$",
+						"file": 1,
+						"line": 2,
+						"severity": 3,
+						"message": 4
+					}
+				]
+			}
+		],	
+		"languages": [
+			{
+				"id": "z390-alc",
+				"aliases": [
+					"z390 ALC"
+				],
+				"extensions": [
+					".asm",
+					".mlc",
+					".prn"
+				],
+				"configuration": "./language.configuration.json"
+			}
+		],
+		"snippets": [
+			{
+				"language": "z390-alc",
+				"path": "./snippets/z390-alc.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "z390-alc",
+				"scopeName": "source.z390alc",
+				"path": "./syntaxes/z390-alc.tmLanguage.json"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "npm run compile"
+				
+	},
+	"devDependencies": {
+		"typescript": "^2.8.1",
+		"vscode": "^1.1.14",
+		"@types/node": "^7.0.43"
+	},
+	"__metadata": {
+		"publisherDisplayName": "skim"
+	}
+}

@@ -1,0 +1,383 @@
+{
+    "*cl": {
+        "prefix": "*cl",
+        "body": [
+            "*************************************************************"
+        ],
+        "description": "A Line of comment."
+    },
+    "*ch": {
+        "prefix": "*ch",
+        "body": [
+            "*************************************************************",
+            "* $0",
+            "*************************************************************"
+        ],
+        "description": "Comment Header."
+    },
+    "A": {
+        "prefix": "A",
+        "body": [
+            "A    ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Add Fullword\nA R1,D2(X2,B2) [RX-a].\n'5A' R1 X2 B2 D2. Both OP treated as binary. OP2 must be fixed-point fullword. Sum placed in OP1."
+    },    
+    "AH": {
+        "prefix": "AH",
+        "body": [
+            "AH   ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Add Halfword\nAH R1,D2(X2,B2) [RX-a].\n'4A' R1 X2 B2 D2. Both OP treated as binary. OP2 must be fixed-point halfword. Sum placed in OP1."
+    },        
+    "AP": {
+        "prefix": "AP",
+        "body": [
+            "AP   ${1:OP1},${2:OP2}"
+        ],
+        "description": "Add Decimal\nAP D1(L1,B1),D2(L2,B2) [SS-b].\n'FA' L1 L2 B1 D1 B2 D2. Both operand must be Packed Decimals. Max len for both OP is 16 bytes. OP1 must be large enough to hold sum.  Results are saved in OP1. Check for overflow and loss of significant digit."
+    },
+    "AR": {
+        "prefix": "AR",
+        "body": [
+            "AR   ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|R2,R0,R1,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
+        ],
+        "description": "Add Register\nAR R1,R2 [RR].\n'1A' R1 R2. Both OP treated as SIGNED binary. OP1 and OP2 may use same register if low order bytes coincides. Sum placed in OP1."
+    },       
+    "B": {
+        "prefix": "B",
+        "body": [
+            "B    ${1:OP2}"
+        ],
+        "description": "Branch Unconditionally\nB D2(X2,B2) [RX-b].\n'47' M1 X2 B2 D2. M1=15 (Unconditional Branch). Branches unconditionally to the location specified by the OP2.  NOP is mask 0."
+    },    
+    "BAL": {
+        "prefix": "BAL",
+        "body": [
+            "BAL  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Branch and Link\nBAL R1,D2(X2,B2) [RX-a].\n'45' R1 X2 B2 D2. Address of next instruction is stored in register R1. Control is transferred to address in OP2. This is for compatibility purposes and is identical to BAS.  Use BAS when possible."
+    },  
+    "BALR": {
+        "prefix": "BALR",
+        "body": [
+            "BALR ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|R2,R0,R1,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
+        ],
+        "description": "Branch and Link Register\nBALR R1,R2 [RR].\n'05' R1 R2. Address of next instruction is stored in register R1. Control is tranferred to address in R2. If OP2 is R0, then no branch is taken.  Address of NSI is stilled placed in register. Identical to BASR.  Use BASR when possible."
+    },        
+    "BAS": {
+        "prefix": "BAS",
+        "body": [
+            "BAS  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Branch and Save\nBAS R1,D2(X2,B2) [RX-a].\n'4D' R1 X2 B2 D2. Address of next instruction is stored in register R1. Control is transferred to address in OP2. This is for compatibility purposes and is identical to BAS.  Use BAS when possible."
+    },          
+    "BASR": {
+        "prefix": "BASR",
+        "body": [
+            "BASR ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|R2,R0,R1,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
+        ],
+        "description": "Branch and Save Register\nBASR R1,R2 [RR].\n'0D' R1 R2. Address of next instruction is stored in register R1. Control is tranferred to address in OP2. If OP2 is R0, then no branch is taken.  Address of NSI is stilled placed in register. Identical to BASR.  Use BASR when possible."
+    },        
+    "BC": {
+        "prefix": "BC",
+        "body": [
+            "BC   ${1:MASK},${2:OP2}"
+        ],
+        "description": "Branch on Condition\nBC M1,D2(X2,B2) [RX-b].\n'47' M1 X2 B2 D2.  OP1 (M1) is a mask value 0-15.  OP2 is the address to which control is tranferred based on CCode.  Common CCode: \nmask 8 4 2 1\nCCod 0 1 2 3\nCommonly use extended branch instructions."
+    },    
+    "BCR": {
+        "prefix": "BCR",
+        "body": [
+            "BCR  ${1:MASK},${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
+        ],
+        "description": "Branch on Condition Register\nBCR M1,R2 [RR].\n'07' M1 R2. OP1 (M1) is a mask value 0-15. OP2 is a register containing the address to branch."
+    },    
+    "BCT": {
+        "prefix": "BCT",
+        "body": [
+            "BCT  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Branch on Count\nBCT R1,D2(X2,B2) [RX-a].\n'46' R1 X2 B2 D2. OP1 is a register containing the counter which is decremented and compared to 0. Branch is taken when this value = 0. OP2 is the address to branch.  "
+    },    
+    "BCTR": {
+        "prefix": "BCTR",
+        "body": [
+            "BCTR ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|R2,R0,R1,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
+        ],
+        "description": "Branch on Count Register\nBCTR R1,R2 [RR].\n'06' R1 R2. OP1 and OP2 is a register.  OP1 contains the counter which is decremented and compared to 0. Branch is taken when this value = 0. Register specified by OP2 contains the address to branch.  "
+    },    
+    "BR": {
+        "prefix": "BR",
+        "body": [
+            "BR   ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
+        ],
+        "description": "Branch Register\nBR R2 [RR].\n'07' M1 R2. Unconditional branch to address in register R2.  M1 = 15 for unconditional branching."
+    },    
+    "BH": {
+        "prefix": "BH",
+        "body": [
+            "BH   ${1:BRANCHTO}"
+        ],
+        "description": "Branch High (Extended). After Compare\nBH D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=2."
+    },    
+    "BL": {
+        "prefix": "BL",
+        "body": [
+            "BL   ${1:BRANCHTO}"
+        ],
+        "description": "Branch Low (Extended). After Compare\nBL D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=4."
+    },    
+    "BE": {
+        "prefix": "BE",
+        "body": [
+            "BE   ${1:BRANCHTO}"
+        ],
+        "description": "Branch Equal (Extended). After Compare\nBE D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=8."
+    },    
+    "BNH": {
+        "prefix": "BNH",
+        "body": [
+            "BNH  ${1:BRANCHTO}"
+        ],
+        "description": "Branch Not High (Extended). After Compare\nBNH D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=13."
+    },    
+    "BNL": {
+        "prefix": "BNL",
+        "body": [
+            "BNL  ${1:BRANCHTO}"
+        ],
+        "description": "Branch Not Low (Extended). After Compare\nBNL D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=11."
+    },    
+    "BNE": {
+        "prefix": "BNE",
+        "body": [
+            "BNE  ${1:BRANCHTO}"
+        ],
+        "description": "Branch Not Equal (Extended). After Compare\nBNE D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=7."
+    },    
+    "BP": {
+        "prefix": "BP",
+        "body": [
+            "BP   ${1:BRANCHTO}"
+        ],
+        "description": "Branch on Plus (Extended). After Arithmetic\nBP D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=2."
+    },    
+    "BM": {
+        "prefix": "BM",
+        "body": [
+            "BM   ${1:BRANCHTO}"
+        ],
+        "description": "Branch on Minus (Extended). After Arithmetic\nBM D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=4."
+    },    
+    "BZ": {
+        "prefix": "BZ",
+        "body": [
+            "BZ   ${1:BRANCHTO}"
+        ],
+        "description": "Branch on Zero (Extended). After Arithmetic\nBZ D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=8."
+    },    
+    "BO": {
+        "prefix": "BO",
+        "body": [
+            "BO   ${1:BRANCHTO}"
+        ],
+        "description": "Branch on Overflow (Extended). After Arithmetic\nBO D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=1."
+    },    
+    "BNP": {
+        "prefix": "BNP",
+        "body": [
+            "BNP  ${1:BRANCHTO}"
+        ],
+        "description": "Branch on Not Plus (Extended). After Arithmetic\nBNP D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=13."
+    },    
+    "BNM": {
+        "prefix": "BNM",
+        "body": [
+            "BNM  ${1:BRANCHTO}"
+        ],
+        "description": "Branch on Not Minus (Extended). After Arithmetic\nBNM D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=11."
+    },    
+    "BNZ": {
+        "prefix": "BNZ",
+        "body": [
+            "BNZ  ${1:BRANCHTO}"
+        ],
+        "description": "Branch on Not Zero (Extended). After Arithmetic\nBNZ D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=7."
+    },    
+    "BNO": {
+        "prefix": "BNO",
+        "body": [
+            "BNO  ${1:BRANCHTO}"
+        ],
+        "description": "Branch on Not Overflow (Extended). After Arithmetic\nBNO D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=14."
+    },    
+    "C": {
+        "prefix": "C",
+        "body": [
+            "C    ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Compare Fullword\nC R1,D2(X2,B2) [RX-a].\n'59' R1 X2 B2 D2. Both OPs treated as signed integers. OP2 must be a fixed-point fullword. Compared arithmetically."
+    },    
+    "CH": {
+        "prefix": "CH",
+        "body": [
+            "CH   ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Compare Halfword\nCH R1,D2(X2,B2) [RX-a].\n'49' R1 X2 B2 D2. Both OPs treated as signed integers. OP2 must be a fixed-point halfword. Compared arithmetically."
+    },       
+    "CLC": {
+        "prefix": "CLC",
+        "body": [
+            "CLC  ${1:OP1},${2:OP2}"
+        ],
+        "description": "Compare Logical Characters\nCLC D1(L,B1),D2(B2) [SS-a].\n'D5' L B1 D1 B2 D2. Compare is binary - byte by byte, left -> right. Max field len is 256 bytes. If len of OP1 < OP2, data compared in OP2 is truncated on the right. If len of OP1 > OP2, compare continues past OP2"
+    },    
+    "CLCL": {
+        "prefix": "CLCL",
+        "body": [
+            "CLCL ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|R2,R0,R1,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
+        ],
+        "description": "Compare Logical Characters Long\nCLCL R1,R2 [RR].\n'0F' R1 R2. R1 and R2 designate even-odd pairs,R1e,R1o and R2e,R2o. R1e=address of OP1, R1o=len of OP1 (bits 8-31). R2e=address of OP2, R2o=pad characters (bits 0-7) and len of OP2 (bits 8-31). Compare is left -> right, byte by byte until inequality is found or end of longer OP is reached."
+    },    
+    "CLI": {
+        "prefix": "CLI",
+        "body": [
+            "CLI  ${1:OP1},${2|X'',C'',Z''|}"
+        ],
+        "description": "Compare Logical Immediate\nCLI D1(B1),I2 [SI].\n'95' I2 B1 D1. OP2 is an immediate value. Compare is binary. OPs are each 1 byte in length."
+    },    
+    "CLM": {
+        "prefix": "CLM",
+        "body": [
+            "CLM  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${3|0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15|},${2:OP2}"
+        ],
+        "description": "Compare Logical Characters Under Mask\nCLM R1,M3,D2(B2) [RS-b].\n'BD' R1 M3 B2 D2. OP3 is a mask (M3).  The four mask bits correspond 1-for-1, left -> right, with 4 bytes of register in OP1. OP2 is assumed to have 1 byte for each 1 in the mask.  Ex. 0110 implies 2-byte field.  Bytes in register of OP1 corresponding to the 1 bit in the mask are compared left->right."
+    },    
+    "CP": {
+        "prefix": "CP",
+        "body": [
+            "CP   ${1:OP1},${2:OP2}"
+        ],
+        "description": "Compare Decimal\nCP D1(L1,B1),D2(L2,B2) [SS-b].\n'F9' L1 L2 B1 D1 B2 D2. Both OP must be Packed values. If the operands are equal, the condition code = 0. If OP1 < OP2,Condition Code =1. If OP1 > OP2,Condition Code =2. CC =3 is not used."
+    },    
+    "CR": {
+        "prefix": "CR",
+        "body": [
+            "CR  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|R2,R0,R1,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
+        ],
+        "description": "Compare Register\nCR R1,R2 [RR].\n'19' R1 R2. Compares registers R1 and R2."
+    },    
+    "CVB": {
+        "prefix": "CVB",
+        "body": [
+            "CVB  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Convert To Binary\nCVB R1,D2(X2,B2) [RX-a].\n'4F' R1 X2 B2 D2. Binary value of OP2 is stored in register specified in OP1. OP2 must be a valid packed number and 8 bytes long. Number must be between -2^31 to 2^31-1 (-2,147,483,647 to 2,147,483,647)."
+    },    
+    "CVD": {
+        "prefix": "CVD",
+        "body": [
+            "CVD  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Convert To Decimal\nCVD R1,D2(X2,B2) [RX-a].\n'4E' R1 X2 B2 D2. Packed value in R1 (OP1) is converted to decimal and stored in OP2."
+    },    
+    "D": {
+        "prefix": "D",
+        "body": [
+            "D    ${1|R2,R4,R6,R8,R10,R12,R14,R0|},${2:OP2}"
+        ],
+        "description": "Divide Fullword\nD R1,D2(X2,B2) [RX-a].\n'5D' R1 X2 B2 D2. OP1 is the Dividend, OP2 is the Divisor (Dividend / Divisor). OP1 (R1) must be an even-numbered register (e.g. R2,R4) of an even-odd pair, R1e and R1o. R1e contains the dividend. OP2 must be fixed-point fullword containing the divisor. Prior to execution, R1o contains a signed value and R1e is filled with the signed value.  After execution, R1e=remainder, R1o=quotient. Zero quotient is always positive."
+    },    
+    "DP": {
+        "prefix": "DP",
+        "body": [
+            "DP   ${1:OP2},${2:OP2}"
+        ],
+        "description": "Divide Packed/Decimal\nDP D1(L1,B1),D2(L2,B2) [SS-b]\n'FD' L1 L2 B1 D1 B2 D2. Both OPs must contain packed decimal. Max len of OP1=16bytes, OP2=8bytes and must be less than OP1. Before execution, OP1 contains dividend and OP2 contains divisor.  OP1 must contain at least 1 byte of leading 0's. After execution, OP1=quotient and remainder. Remainder in right-most part of field equal to the len (L2) of OP2.  Quotient occupies rest of field (len=L1-L2)." 
+    },    
+    "DR": {
+        "prefix": "DR",
+        "body": [
+            "DR   ${1|R2,R4,R6,R8,R10,R12,R14,R0|},${2|R3,R1,R0,R2,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
+        ],
+        "description": "Divide Register.\nDR R1,R2 [RR]\n'1D' R1 R2\nOP1 (R1) must be an even-numbered register in an even-odd pair, R1e and R1o. R1o contains the dividend, extending (greater than 32 bits) into R1e. Divisor is in OP2 register. After execution, R1o=quotient,R1e=remainder. "
+    },    
+    "ED": {
+        "prefix": "ED",
+        "body": [
+            "ED   ${1:PATTERN},${2:OP2}"
+        ],
+        "description": "Edit.\nED D1(L,B1),D2(B2) [SS-a]\n'DE' L B1 D1 B2 D2\nOP1 must contain a valid pattern. OP2 must be valid packed number."
+    },    
+    "IC": {
+        "prefix": "IC",
+        "body": [
+            "IC   ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Insert Character.\nIC R1,D2(X2,B2) [RX-a]\n'43' R1 X2 B2 D2\nUsed to move 1-byte of data from storage to the low order (rightmost) byte of a register. Value of byte specified in OP2 is inserted into low-order byte (bits 24-31) of register in OP1 (R1). OP2 specifies 1-byte. The 3 high-order bytes in OP1 remains unchanged."
+    },    
+    "ICM": {
+        "prefix": "ICM",
+        "body": [
+            "ICM  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${3|0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15|},${2:OP2}"
+        ],
+        "description": "Insert Character Under Mask\nICM R1,M3,D2(B2) [RS-b]\n'BF' R1 M3 B2 D2\nLoads bytes into a register based on mask. OP1 is the register. OP2 is the data. OP3 is a mask (M3). Ex. a mask of 0110 will cause 2 bytes from stg specified in OP2 (starting from first byte) to be copied into the 2nd and 3rd byte of the register. The mask bits of 1 determines which bytes of the registers are affectd."
+    },    
+    "L": {
+        "prefix": "L",
+        "body": [
+            "L    ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Load Fullword\nL R1,D2(X2,B2) [RX-a]\n'58' R1 X2 B2 D2\nCopies 4 bytes of data from storage (OP2) to register (OP1). OP2 is an aligned fix-point fullword (non fullword alignment will cause warnings). 4 bytes from OP2 are copied into the register, regardless of the length of OP2."
+    },    
+    "LA": {
+        "prefix": "LA",
+        "body": [
+            "LA   ${1:OP1},${2:OP2}"
+        ],
+        "description": "Load Address\nLA R1,D2(X2,B2) [RX-a]\n'41' R1 X2 B2 D2\nCopies the address of OP2 into low-order 3-bytes of OP1 register (R1).  High-order byte of OP1 is set to HEX 0. Useful to establish base registers or index registers and can also be used to increment registers or to load the initial value into a BCT register"
+    },    
+    "LH": {
+        "prefix": "LH",
+        "body": [
+            "LH   ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Load Halfword\nLH R1,D2(X2,B2) [RX-a]\n'48' R1 X2 B2 D2\nContents of OP2 are copied into the 2 low-order bytes of OP1 register. OP2 is an aligned fix-point halfword. High-order bit of OP2 is propagated across high-order 2 bytes of OP1 (R1)."
+    },    
+    "LM": {
+        "prefix": "LM",
+        "body": [
+            "LM   ${1:OP1},${2:OP2}"
+        ],
+        "description": "Load Multiple\nLM R1,R3,D2(B2) [RS-a]\n'98' R1 R3 B2 D2\nContents of OP2 fullwords are copied into the range of registers specified by OP1 and OP3 (e.g., R14,R3 would be range registers R14,R15,R0,R1,R2,R3). OP2 is fullword aligned."
+    },    
+    "LR": {
+        "prefix": "LR",
+        "body": [
+            "LR   ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|R2,R0,R1,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}",
+            "$0"
+        ],
+        "description": "Load Register.\nLR R1,R2 [RR]\n'18' R1 R2\nCopies contents of OP2 register (4 bytes) into OP1 register."
+    },
+    "LTR": {
+        "prefix": "LTR",
+        "body": [
+            "LTR  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|R2,R0,R1,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
+        ],
+        "description": "Load and Test Register\nLTR R1,R2 [RR]\n'12' R1 R2\nContents of OP2 register are copied into OP1 register. OP1 and OP2 may be the same register. Condition code is set (0=,1<,2>,3n/a)."
+    },    
+    "M": {
+        "prefix": "M",
+        "body": [
+            "M    ${1|R2,R4,R6,R8,R10,R12,R14,R0|},${2:OP2}"
+        ],
+        "description": "Multiply Fullword\nM R1,D2(X2,B2) [RX-a]\n'5C' R1 X2 B2 D2\nOP1 must be an even-numbered register in an even-odd pair, R1e,R1o.  R1o must contain the mutiplicand.  OP2 must be a fixed-point fullword containing the multiplier. R1o and OP2 are multiplied and result stored in R1e (R1o x OP2=R1e). The number of digits in the product = sum of digits in multiplier and multiplicand. So the even-odd pair of registers R1e,R1o form OP1, allowing for double-word long (8 bytes) product."
+    },    
+    "MVC": {
+        "prefix": "MVC",
+        "body": [
+            "MVC  ${1:OP1},${2:OP2}"
+        ],
+        "description": "Move Characters\nMVC D1(L,B1),D2(B2) [SS-a].\n'D2' L B1 D1 B2 D2\nCopies data from one field in main memory to another. Length of bytes moved is determined by OP1. Copies byte-by-byte, left to right from OP2 to OP1."
+    }
+}
