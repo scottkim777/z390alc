@@ -1,13 +1,13 @@
 {
-    "*cl": {
-        "prefix": "*cl",
+    "cl*": {
+        "prefix": "cl*",
         "body": [
             "*************************************************************"
         ],
         "description": "A Line of comment."
     },
-    "*ch": {
-        "prefix": "*ch",
+    "ch*": {
+        "prefix": "ch*",
         "body": [
             "*************************************************************",
             "* $0",
@@ -20,91 +20,91 @@
         "body": [
             "A    ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
         ],
-        "description": "Add Fullword\nA R1,D2(X2,B2) [RX-a].\n'5A' R1 X2 B2 D2. Both OP treated as binary. OP2 must be fixed-point fullword. Sum placed in OP1."
+        "description": "Add Fullword\nA R1,D2(X2,B2) [RX-a].\n'5A' R1 X2 B2 D2\nBoth OP treated as binary. OP2 must be fixed-point fullword. Sum placed in OP1.\nCondition Code:\n0 if sum = 0\n1 if sum < 0\n2 if sum > 0\n3 if Overflow occurs\n"
     },    
     "AH": {
         "prefix": "AH",
         "body": [
             "AH   ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
         ],
-        "description": "Add Halfword\nAH R1,D2(X2,B2) [RX-a].\n'4A' R1 X2 B2 D2. Both OP treated as binary. OP2 must be fixed-point halfword. Sum placed in OP1."
+        "description": "Add Halfword (Binary Math)\nAH R1,D2(X2,B2) [RX-a].\n'4A' R1 X2 B2 D2\nBoth OP treated as binary. OP2 must be fixed-point halfword. Sum placed in OP1.\nCondition Code:\n0 if sum = 0\n1 if sum < 0\n2 if sum > 0\n3 if Overflow occurs\n"
     },        
     "AP": {
         "prefix": "AP",
         "body": [
             "AP   ${1:OP1},${2:OP2}"
         ],
-        "description": "Add Decimal\nAP D1(L1,B1),D2(L2,B2) [SS-b].\n'FA' L1 L2 B1 D1 B2 D2. Both operand must be Packed Decimals. Max len for both OP is 16 bytes. OP1 must be large enough to hold sum.  Results are saved in OP1. Check for overflow and loss of significant digit."
+        "description": "Add Decimal (Binary Math)\nAP D1(L1,B1),D2(L2,B2) [SS-b].\n'FA' L1 L2 B1 D1 B2 D2\nBoth operand must be Packed Decimals. Max len for both OP is 16 bytes. OP1 must be large enough to hold sum.  Results are saved in OP1. Check for overflow and loss of significant digit.\nCondition Code:\n0 if sum = 0\n1 if sum < 0\n2 if sum > 0\n3 if Overflow occurs\n"
     },
     "AR": {
         "prefix": "AR",
         "body": [
             "AR   ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|R2,R0,R1,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
         ],
-        "description": "Add Register\nAR R1,R2 [RR].\n'1A' R1 R2. Both OP treated as SIGNED binary. OP1 and OP2 may use same register if low order bytes coincides. Sum placed in OP1."
+        "description": "Add Register (Binary Math)\nAR R1,R2 [RR].\n'1A' R1 R2\nBoth OP treated as SIGNED binary. OP1 and OP2 may use same register if low order bytes coincides. Sum placed in OP1.\nCondition Code:\n0 if sum = 0\n1 if sum < 0\n2 if sum > 0\n3 if Overflow occurs\n"
     },       
     "B": {
         "prefix": "B",
         "body": [
             "B    ${1:OP2}"
         ],
-        "description": "Branch Unconditionally\nB D2(X2,B2) [RX-b].\n'47' M1 X2 B2 D2. M1=15 (Unconditional Branch). Branches unconditionally to the location specified by the OP2.  NOP is mask 0."
+        "description": "Branch Unconditionally\nB D2(X2,B2) [RX-b]\n'47' M1 X2 B2 D2\nM1=15 (Unconditional Branch). Branches unconditionally to the location specified by the OP2.  NOP is mask 0."
     },    
     "BAL": {
         "prefix": "BAL",
         "body": [
             "BAL  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
         ],
-        "description": "Branch and Link\nBAL R1,D2(X2,B2) [RX-a].\n'45' R1 X2 B2 D2. Address of next instruction is stored in register R1. Control is transferred to address in OP2. This is for compatibility purposes and is identical to BAS.  Use BAS when possible."
+        "description": "Branch and Link\nBAL R1,D2(X2,B2) [RX-a].\n'45' R1 X2 B2 D2\nAddress of next instruction is stored in register R1. Control is transferred to address in OP2. This is for compatibility purposes and is identical to BAS.  Use BAS when possible."
     },  
     "BALR": {
         "prefix": "BALR",
         "body": [
             "BALR ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|R2,R0,R1,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
         ],
-        "description": "Branch and Link Register\nBALR R1,R2 [RR].\n'05' R1 R2. Address of next instruction is stored in register R1. Control is tranferred to address in R2. If OP2 is R0, then no branch is taken.  Address of NSI is stilled placed in register. Identical to BASR.  Use BASR when possible."
+        "description": "Branch and Link Register\nBALR R1,R2 [RR].\n'05' R1 R2\nAddress of next instruction is stored in register R1. Control is tranferred to address in R2. If OP2 is R0, then no branch is taken.  Address of NSI is stilled placed in register. Identical to BASR.  Use BASR when possible."
     },        
     "BAS": {
         "prefix": "BAS",
         "body": [
             "BAS  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
         ],
-        "description": "Branch and Save\nBAS R1,D2(X2,B2) [RX-a].\n'4D' R1 X2 B2 D2. Address of next instruction is stored in register R1. Control is transferred to address in OP2. This is for compatibility purposes and is identical to BAS.  Use BAS when possible."
+        "description": "Branch and Save\nBAS R1,D2(X2,B2) [RX-a].\n'4D' R1 X2 B2 D2\nAddress of next instruction is stored in register R1. Control is transferred to address in OP2. This is for compatibility purposes and is identical to BAS.  Use BAS when possible."
     },          
     "BASR": {
         "prefix": "BASR",
         "body": [
             "BASR ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|R2,R0,R1,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
         ],
-        "description": "Branch and Save Register\nBASR R1,R2 [RR].\n'0D' R1 R2. Address of next instruction is stored in register R1. Control is tranferred to address in OP2. If OP2 is R0, then no branch is taken.  Address of NSI is stilled placed in register. Identical to BASR.  Use BASR when possible."
+        "description": "Branch and Save Register\nBASR R1,R2 [RR].\n'0D' R1 R2\nAddress of next instruction is stored in register R1. Control is tranferred to address in OP2. If OP2 is R0, then no branch is taken.  Address of NSI is stilled placed in register. Identical to BASR.  Use BASR when possible."
     },        
     "BC": {
         "prefix": "BC",
         "body": [
             "BC   ${1:MASK},${2:OP2}"
         ],
-        "description": "Branch on Condition\nBC M1,D2(X2,B2) [RX-b].\n'47' M1 X2 B2 D2.  OP1 (M1) is a mask value 0-15.  OP2 is the address to which control is tranferred based on CCode.  Common CCode: \nmask 8 4 2 1\nCCod 0 1 2 3\nCommonly use extended branch instructions."
+        "description": "Branch on Condition\nBC M1,D2(X2,B2) [RX-b].\n'47' M1 X2 B2 D2\nOP1 (M1) is a mask value 0-15.  OP2 is the address to which control is tranferred based on CCode. Commonly use extended branch instructions.\nEx. BC 8,EQUAL0\nCommon Condition Code: \nMask 8 4 2 1\nCCod 0 1 2 3\nMask Dec CCode\n0000 0 NoBranch\n0001 1 3\n0010 2 2\n0011 3 2,3\n0100 4 1\n0101 5 1,3\n0110 6 1,2\n0111 7 1,2,3\n1000 8 0\n1001 9 0,3\n1010 10 0,2\n1011 11 0,2,3\n1100 12 0,1\n1101 13 0,1,3\n1110 14 0,1,2\n1111 15 0,1,2,3 (all)\n"
     },    
     "BCR": {
         "prefix": "BCR",
         "body": [
-            "BCR  ${1:MASK},${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
+            "BCR  ${1:MASK},${2|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
         ],
-        "description": "Branch on Condition Register\nBCR M1,R2 [RR].\n'07' M1 R2. OP1 (M1) is a mask value 0-15. OP2 is a register containing the address to branch."
+        "description": "Branch on Condition Register\nBCR M1,R2 [RR].\n'07' M1 R2\nOP1 (M1) is a mask value 0-15. OP2 is a register containing the address to branch.\nEx. BCR 8,R14\nCommon Condition Code: \nMask 8 4 2 1\nCCod 0 1 2 3\nMask Dec CCode\n0000 0 NoBranch\n0001 1 3\n0010 2 2\n0011 3 2,3\n0100 4 1\n0101 5 1,3\n0110 6 1,2\n0111 7 1,2,3\n1000 8 0\n1001 9 0,3\n1010 10 0,2\n1011 11 0,2,3\n1100 12 0,1\n1101 13 0,1,3\n1110 14 0,1,2\n1111 15 0,1,2,3 (all)\n"
     },    
     "BCT": {
         "prefix": "BCT",
         "body": [
             "BCT  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
         ],
-        "description": "Branch on Count\nBCT R1,D2(X2,B2) [RX-a].\n'46' R1 X2 B2 D2. OP1 is a register containing the counter which is decremented and compared to 0. Branch is taken when this value = 0. OP2 is the address to branch.  "
+        "description": "Branch on Count\nBCT R1,D2(X2,B2) [RX-a].\n'46' R1 X2 B2 D2\nOP1 is a register containing the counter which is decremented and compared to 0. Branch is taken when this value = 0. OP2 is the address to branch.  "
     },    
     "BCTR": {
         "prefix": "BCTR",
         "body": [
             "BCTR ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|R2,R0,R1,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
         ],
-        "description": "Branch on Count Register\nBCTR R1,R2 [RR].\n'06' R1 R2. OP1 and OP2 is a register.  OP1 contains the counter which is decremented and compared to 0. Branch is taken when this value = 0. Register specified by OP2 contains the address to branch.  "
+        "description": "Branch on Count Register\nBCTR R1,R2 [RR].\n'06' R1 R2\nOP1 and OP2 is a register.  OP1 contains the counter which is decremented and compared to 0. Branch is taken when this value = 0. Register specified by OP2 contains the address to branch.  "
     },    
     "BR": {
         "prefix": "BR",
@@ -118,189 +118,210 @@
         "body": [
             "BH   ${1:BRANCHTO}"
         ],
-        "description": "Branch High (Extended). After Compare\nBH D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=2."
+        "description": "Branch High (Extended). After Compare\nBH D2(X2,B2) [RX-b].\n'47' X2 B2 D2\nReplaces the M1 field. M1 value=2."
     },    
     "BL": {
         "prefix": "BL",
         "body": [
             "BL   ${1:BRANCHTO}"
         ],
-        "description": "Branch Low (Extended). After Compare\nBL D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=4."
+        "description": "Branch Low (Extended). After Compare\nBL D2(X2,B2) [RX-b].\n'47' X2 B2 D2\nReplaces the M1 field. M1 value=4."
     },    
     "BE": {
         "prefix": "BE",
         "body": [
             "BE   ${1:BRANCHTO}"
         ],
-        "description": "Branch Equal (Extended). After Compare\nBE D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=8."
+        "description": "Branch Equal (Extended). After Compare\nBE D2(X2,B2) [RX-b].\n'47' X2 B2 D2\nReplaces the M1 field. M1 value=8."
     },    
     "BNH": {
         "prefix": "BNH",
         "body": [
             "BNH  ${1:BRANCHTO}"
         ],
-        "description": "Branch Not High (Extended). After Compare\nBNH D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=13."
+        "description": "Branch Not High (Extended). After Compare\nBNH D2(X2,B2) [RX-b].\n'47' X2 B2 D2\nReplaces the M1 field. M1 value=13."
     },    
     "BNL": {
         "prefix": "BNL",
         "body": [
             "BNL  ${1:BRANCHTO}"
         ],
-        "description": "Branch Not Low (Extended). After Compare\nBNL D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=11."
+        "description": "Branch Not Low (Extended). After Compare\nBNL D2(X2,B2) [RX-b].\n'47' X2 B2 D2\nReplaces the M1 field. M1 value=11."
     },    
     "BNE": {
         "prefix": "BNE",
         "body": [
             "BNE  ${1:BRANCHTO}"
         ],
-        "description": "Branch Not Equal (Extended). After Compare\nBNE D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=7."
+        "description": "Branch Not Equal (Extended). After Compare\nBNE D2(X2,B2) [RX-b].\n'47' X2 B2 D2\nReplaces the M1 field. M1 value=7."
     },    
     "BP": {
         "prefix": "BP",
         "body": [
             "BP   ${1:BRANCHTO}"
         ],
-        "description": "Branch on Plus (Extended). After Arithmetic\nBP D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=2."
+        "description": "Branch on Plus (Extended). After Arithmetic\nBP D2(X2,B2) [RX-b].\n'47' X2 B2 D2\nReplaces the M1 field. M1 value=2."
     },    
     "BM": {
         "prefix": "BM",
         "body": [
             "BM   ${1:BRANCHTO}"
         ],
-        "description": "Branch on Minus (Extended). After Arithmetic\nBM D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=4."
+        "description": "Branch on Minus (Extended). After Arithmetic\nBM D2(X2,B2) [RX-b].\n'47' X2 B2 D2\nReplaces the M1 field. M1 value=4."
     },    
     "BZ": {
         "prefix": "BZ",
         "body": [
             "BZ   ${1:BRANCHTO}"
         ],
-        "description": "Branch on Zero (Extended). After Arithmetic\nBZ D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=8."
+        "description": "Branch on Zero (Extended). After Arithmetic\nBZ D2(X2,B2) [RX-b].\n'47' X2 B2 D2\nReplaces the M1 field. M1 value=8."
     },    
     "BO": {
         "prefix": "BO",
         "body": [
             "BO   ${1:BRANCHTO}"
         ],
-        "description": "Branch on Overflow (Extended). After Arithmetic\nBO D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=1."
+        "description": "Branch on Overflow (Extended). After Arithmetic\nBO D2(X2,B2) [RX-b].\n'47' X2 B2 D2\nReplaces the M1 field. M1 value=1."
     },    
     "BNP": {
         "prefix": "BNP",
         "body": [
             "BNP  ${1:BRANCHTO}"
         ],
-        "description": "Branch on Not Plus (Extended). After Arithmetic\nBNP D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=13."
+        "description": "Branch on Not Plus (Extended). After Arithmetic\nBNP D2(X2,B2) [RX-b].\n'47' X2 B2 D2\nReplaces the M1 field. M1 value=13."
     },    
     "BNM": {
         "prefix": "BNM",
         "body": [
             "BNM  ${1:BRANCHTO}"
         ],
-        "description": "Branch on Not Minus (Extended). After Arithmetic\nBNM D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=11."
+        "description": "Branch on Not Minus (Extended). After Arithmetic\nBNM D2(X2,B2) [RX-b].\n'47' X2 B2 D2\nReplaces the M1 field. M1 value=11."
     },    
     "BNZ": {
         "prefix": "BNZ",
         "body": [
             "BNZ  ${1:BRANCHTO}"
         ],
-        "description": "Branch on Not Zero (Extended). After Arithmetic\nBNZ D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=7."
+        "description": "Branch on Not Zero (Extended). After Arithmetic\nBNZ D2(X2,B2) [RX-b].\n'47' X2 B2 D2\nReplaces the M1 field. M1 value=7."
     },    
     "BNO": {
         "prefix": "BNO",
         "body": [
             "BNO  ${1:BRANCHTO}"
         ],
-        "description": "Branch on Not Overflow (Extended). After Arithmetic\nBNO D2(X2,B2) [RX-b].\n'47' X2 B2 D2. Replaces the M1 field. M1 value=14."
+        "description": "Branch on Not Overflow (Extended). After Arithmetic\nBNO D2(X2,B2) [RX-b].\n'47' X2 B2 D2\nReplaces the M1 field. M1 value=14."
     },    
     "C": {
         "prefix": "C",
         "body": [
             "C    ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
         ],
-        "description": "Compare Fullword\nC R1,D2(X2,B2) [RX-a].\n'59' R1 X2 B2 D2. Both OPs treated as signed integers. OP2 must be a fixed-point fullword. Compared arithmetically."
+        "description": "Compare Fullword\nC R1,D2(X2,B2) [RX-a].\n'59' R1 X2 B2 D2\nBoth OPs treated as signed integers. OP2 must be a fixed-point fullword. Compared arithmetically.\nCondition Code:\n0 if OP1 = OP2\n1 if OP1 < OP2\n2 if OP1 > OP2\n3 N/A\n"
     },    
     "CH": {
         "prefix": "CH",
         "body": [
             "CH   ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
         ],
-        "description": "Compare Halfword\nCH R1,D2(X2,B2) [RX-a].\n'49' R1 X2 B2 D2. Both OPs treated as signed integers. OP2 must be a fixed-point halfword. Compared arithmetically."
+        "description": "Compare Halfword\nCH R1,D2(X2,B2) [RX-a].\n'49' R1 X2 B2 D2\nBoth OPs treated as signed integers. OP2 must be a fixed-point halfword. Compared arithmetically.\nCondition Code:\n0 if OP1 = OP2\n1 if OP1 < OP2\n2 if OP1 > OP2\n3 N/A\n"
     },       
     "CLC": {
         "prefix": "CLC",
         "body": [
             "CLC  ${1:OP1},${2:OP2}"
         ],
-        "description": "Compare Logical Characters\nCLC D1(L,B1),D2(B2) [SS-a].\n'D5' L B1 D1 B2 D2. Compare is binary - byte by byte, left -> right. Max field len is 256 bytes. If len of OP1 < OP2, data compared in OP2 is truncated on the right. If len of OP1 > OP2, compare continues past OP2"
+        "description": "Compare Logical Characters\nCLC D1(L,B1),D2(B2) [SS-a].\n'D5' L B1 D1 B2 D2\nCompare is binary - byte by byte, left -> right. Max field len is 256 bytes. If len of OP1 < OP2, data compared in OP2 is truncated on the right. If len of OP1 > OP2, compare continues past OP2\nCondition Code:\n0 if OP1 = OP2\n1 if OP1 < OP2\n2 if OP1 > OP2\n3 N/A\n"
     },    
     "CLCL": {
         "prefix": "CLCL",
         "body": [
             "CLCL ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|R2,R0,R1,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
         ],
-        "description": "Compare Logical Characters Long\nCLCL R1,R2 [RR].\n'0F' R1 R2. R1 and R2 designate even-odd pairs,R1e,R1o and R2e,R2o. R1e=address of OP1, R1o=len of OP1 (bits 8-31). R2e=address of OP2, R2o=pad characters (bits 0-7) and len of OP2 (bits 8-31). Compare is left -> right, byte by byte until inequality is found or end of longer OP is reached."
+        "description": "Compare Logical Characters Long\nCLCL R1,R2 [RR].\n'0F' R1 R2\nR1 and R2 designate even-odd pairs,R1e,R1o and R2e,R2o. R1e=address of OP1, R1o=len of OP1 (bits 8-31). R2e=address of OP2, R2o=pad characters (bits 0-7) and len of OP2 (bits 8-31). Compare is left -> right, byte by byte until inequality is found or end of longer OP is reached.\nCondition Code:\n0 if both OPs are = 0 or both OPs length = 0\n1 if OP1 < OP2\n2 if OP1 > OP2\n3 N/A\n"
     },    
     "CLI": {
         "prefix": "CLI",
         "body": [
-            "CLI  ${1:OP1},${2|X'',C'',Z''|}"
+            "CLI  ${1:OP1},${2|C,F,X,Z,B,P|}'$0'"
         ],
-        "description": "Compare Logical Immediate\nCLI D1(B1),I2 [SI].\n'95' I2 B1 D1. OP2 is an immediate value. Compare is binary. OPs are each 1 byte in length."
+        "description": "Compare Logical Immediate\nCLI D1(B1),I2 [SI].\n'95' I2 B1 D1\nOP2 is an immediate value. Compare is binary. OPs are each 1 byte in length.\nCondition Code:\n0 if OP1 = OP2\n1 if OP1 < OP2\n2 if OP1 > OP2\n3 N/A\n"
     },    
     "CLM": {
         "prefix": "CLM",
         "body": [
-            "CLM  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${3|0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15|},${2:OP2}"
+            "CLM  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15|},${3:OP2}"
         ],
-        "description": "Compare Logical Characters Under Mask\nCLM R1,M3,D2(B2) [RS-b].\n'BD' R1 M3 B2 D2. OP3 is a mask (M3).  The four mask bits correspond 1-for-1, left -> right, with 4 bytes of register in OP1. OP2 is assumed to have 1 byte for each 1 in the mask.  Ex. 0110 implies 2-byte field.  Bytes in register of OP1 corresponding to the 1 bit in the mask are compared left->right."
+        "description": "Compare Logical Characters Under Mask\nCLM R1,M3,D2(B2) [RS-b].\n'BD' R1 M3 B2 D2\nOP3 is a mask (M3).  The four mask bits correspond 1-for-1, left -> right, with 4 bytes of register in OP1. OP2 is assumed to have 1 byte for each 1 in the mask.  Ex. 0110 implies 2-byte field.  Bytes in register of OP1 corresponding to the 1 bit in the mask are compared left->right.\nCondition Code:\n0 if OP1 = OP2 or the mask bits are all 0\n1 if OP1 < OP2\n2 if OP1 > OP2\n3 N/A\n"
     },    
     "CP": {
         "prefix": "CP",
         "body": [
             "CP   ${1:OP1},${2:OP2}"
         ],
-        "description": "Compare Decimal\nCP D1(L1,B1),D2(L2,B2) [SS-b].\n'F9' L1 L2 B1 D1 B2 D2. Both OP must be Packed values. If the operands are equal, the condition code = 0. If OP1 < OP2,Condition Code =1. If OP1 > OP2,Condition Code =2. CC =3 is not used."
+        "description": "Compare Decimal\nCP D1(L1,B1),D2(L2,B2) [SS-b].\n'F9' L1 L2 B1 D1 B2 D2\nBoth OP must be Packed values.\nCondition Code:\n0 if OP1 = OP2\n1 if OP1 < OP2\n2 if OP1 > OP2\n3 N/A\n"
     },    
     "CR": {
         "prefix": "CR",
         "body": [
             "CR  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|R2,R0,R1,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
         ],
-        "description": "Compare Register\nCR R1,R2 [RR].\n'19' R1 R2. Compares registers R1 and R2."
+        "description": "Compare Register\nCR R1,R2 [RR].\n'19' R1 R2\nCompares registers R1 and R2.\nCondition Code:\n0 if OP1 = OP2\n1 if OP1 < OP2\n2 if OP1 > OP2\n3 N/A\n"
     },    
     "CVB": {
         "prefix": "CVB",
         "body": [
             "CVB  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
         ],
-        "description": "Convert To Binary\nCVB R1,D2(X2,B2) [RX-a].\n'4F' R1 X2 B2 D2. Binary value of OP2 is stored in register specified in OP1. OP2 must be a valid packed number and 8 bytes long. Number must be between -2^31 to 2^31-1 (-2,147,483,647 to 2,147,483,647)."
+        "description": "Convert To Binary\nCVB R1,D2(X2,B2) [RX-a].\n'4F' R1 X2 B2 D2\nConverts an 8 byte field of packed decimal data into binary and placethe result in the OP1 register. Binary value of OP2 is stored in register specified in OP1. OP2 must be a valid packed number and 8 bytes long. Number must be between -2^31 to 2^31-1 (-2,147,483,647 to 2,147,483,647)."
     },    
     "CVD": {
         "prefix": "CVD",
         "body": [
             "CVD  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
         ],
-        "description": "Convert To Decimal\nCVD R1,D2(X2,B2) [RX-a].\n'4E' R1 X2 B2 D2. Packed value in R1 (OP1) is converted to decimal and stored in OP2."
+        "description": "Convert To Decimal\nCVD R1,D2(X2,B2) [RX-a].\n'4E' R1 X2 B2 D2\nConverts binary data in the register specified by OP1 to packed decimal data in the 8 bytes of storage specified by OP2. Only decimal instruction that works backwards. Packed value in R1 (OP1) is converted to decimal and stored in OP2."
     },    
     "D": {
         "prefix": "D",
         "body": [
             "D    ${1|R2,R4,R6,R8,R10,R12,R14,R0|},${2:OP2}"
         ],
-        "description": "Divide Fullword\nD R1,D2(X2,B2) [RX-a].\n'5D' R1 X2 B2 D2. OP1 is the Dividend, OP2 is the Divisor (Dividend / Divisor). OP1 (R1) must be an even-numbered register (e.g. R2,R4) of an even-odd pair, R1e and R1o. R1e contains the dividend. OP2 must be fixed-point fullword containing the divisor. Prior to execution, R1o contains a signed value and R1e is filled with the signed value.  After execution, R1e=remainder, R1o=quotient. Zero quotient is always positive."
+        "description": "Divide Fullword\nD R1,D2(X2,B2) [RX-a].\n'5D' R1 X2 B2 D2\nOP1 R1 must be an even-numbered register, such as R2, R4, R6 of an even-odd register pair. The even-odd register pair contain the dividend. OP2 must be a fixed-point fullword. OP2 contains the divisor. The dividend is divided by the divisor. After execution, OP1 even register contains the remainder. The odd numbered register of the pair contains the quotient. The sign of the quotient is determined by the rules of algebra. The remainder has the same sign as the dividend. Exception - a zero result for the quotient or remainder will always be positive. Division by zero is not allowed. Prior to execution the sign of the value in OP1 odd register must be extended into the even register. The condition code is unchanged.Since the dividend will be treated as a 64 bit signed binary integer it is important that the contents of the even-odd register pair contain data that meets this expectation. To do so the even register should be initialized to contain the proper sign.\nHow to initialize the Even Register before dividing using L or M:\nM 4,=F'1' for number of unknown sign\nD 4,NUMBER this always works\nRemember that M also uses an even/odd register pair for OP1. So to propagate the sign of the value in the odd register through the pair this is the way to go.\n- OR -\nL R4,=F'0' for a known positive number\nD R4,POSITIVE\nL R4,F'-1' for a known negative number\nD R4,NEGATIVE\n"
+    },    
+    "DCB": {
+        "prefix": "DCB",
+        "body": [
+            "DCB   DSORG=${1:PS},MACRF=${2|GM,GL,PM,PL|},DDNAME=${3:DDNAME},EODAD=${4:EOF}"
+        ],
+        "description": "Data Control Block (MACRO)\nDCB instruction is required for each file (input,output) used by the program.\nMACRF (Macro Format) specifies the type of GET or PUT macro to generate. GM=GET MOVE, GL=GET LOCATE, PM=PUT MOVE, PL=PUT LOCATE.\nDDNAME parameters value MUST match the DD statement name in the JCL for the file.\nEODAD is only used for input files.\nOther parameters like RECFM, LRECL or BLKSIZE can be used but are generally codedd in the JCL DD statement. The DD statement name in the JCL and the DDNAME parameter in the DCB macro must match.\nEx.\nOPEN (INFILE,(INPUT))\nINFILE  DCB  DSORG=PS,MACRF=(GL),DDNAME=IDEMO,EODAD=EOFPROG\n" 
     },    
     "DP": {
         "prefix": "DP",
         "body": [
             "DP   ${1:OP2},${2:OP2}"
         ],
-        "description": "Divide Packed/Decimal\nDP D1(L1,B1),D2(L2,B2) [SS-b]\n'FD' L1 L2 B1 D1 B2 D2. Both OPs must contain packed decimal. Max len of OP1=16bytes, OP2=8bytes and must be less than OP1. Before execution, OP1 contains dividend and OP2 contains divisor.  OP1 must contain at least 1 byte of leading 0's. After execution, OP1=quotient and remainder. Remainder in right-most part of field equal to the len (L2) of OP2.  Quotient occupies rest of field (len=L1-L2)." 
+        "description": "Divide Packed/Decimal\nDP D1(L1,B1),D2(L2,B2) [SS-b]\n'FD' L1 L2 B1 D1 B2 D2\nEach operand must contain a valid packed number. Before execution, OP1 contains the dividend and OP2 contains the divisor. The dividend (OP1 before execution) must contain at least 1 byte of leading zeroes. After execution, OP1 contains the quotient and the remainder. The remainder will be rightmost in the field and will equal the length of OP2. The quotient will occupy the rest of the field and is equal in length to L1 minus L2. OP1 location (after the remainder is stored) must be large enough to hold the quotient. The sign of the quotient is determined by the rules of algebra. The sign of the remainder is the same as the sign of the dividend. The maximum size of OP1 is 16 bytes (31 numeric digits and sign). The max size of the OP2 is 8 bytes (15 numeric digits and sign). The length of OP2 must be less than the length of OP1. The max size of the quotient is 15 bytes (29 numeric digits and sign). Operands may overlap in storage if their low order bytes coincide. Division by zero is not allowed. The condition code is unchanged." 
     },    
     "DR": {
         "prefix": "DR",
         "body": [
             "DR   ${1|R2,R4,R6,R8,R10,R12,R14,R0|},${2|R3,R1,R0,R2,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
         ],
-        "description": "Divide Register.\nDR R1,R2 [RR]\n'1D' R1 R2\nOP1 (R1) must be an even-numbered register in an even-odd pair, R1e and R1o. R1o contains the dividend, extending (greater than 32 bits) into R1e. Divisor is in OP2 register. After execution, R1o=quotient,R1e=remainder. "
+        "description": "Divide Register.\nDR R1,R2 [RR]\n'1D' R1 R2\nOP1 R1 must be an even-numbered register. Before execution, the even-odd register pair (R1 and the following even register) contain the dividend. OP2 contains the divisor. OP2 can be an even or odd register. After execution, OP1-even contain the remainder. OP1-odd register contains the quotient. Sign of the quotient is determined by the rules of algebra. The quotient has the same sign as the dividend. Exception-a zero result for the quotient or remainder will always be positive. Division by zero is not allowed. The condition codes is unchanged."
+    },    
+    "DROP": {
+        "prefix": "DROP (Assembler Directive)",
+        "body": [
+            "DROP ${1:REGISTER(s)}"
+        ],
+        "description": "DROP (Assembler Directive)\nThe Drop Statement cancels the effect of the USING statement.   The operand is the number of the register to drop.  If no register is specified, all registers are dropped. The operand portion tells the supervisor which registers will no longer be used as base registers.\n"
+    },    
+    "DSECT": {
+        "prefix": "DSECT (Assembler Directive)",
+        "body": [
+            "DSECT"
+        ],
+        "description": "DSECT (Assembler Directive)\nDSECTS may be used to attach symbolic names to data, based on that data’s relative position to an assigned starting point. A DSECT functions solely as an overlay, or grid of reference, whereby labels may be entered in the program's symbol table to address data implicitly.  It has its own location counter and base register.  It occupies no storage, existing for reference purposes only. The label (symbolic name) is optional in the DSECT statement. The DSECT statement has no operands. The DSECT statement saves the current value in the location  counter and starts a new location counter with a value of zero (0). DSECTs are terminated with a CSECT, END, or DSECT."
     },    
     "ED": {
         "prefix": "ED",
@@ -309,6 +330,27 @@
         ],
         "description": "Edit.\nED D1(L,B1),D2(B2) [SS-a]\n'DE' L B1 D1 B2 D2\nOP1 must contain a valid pattern. OP2 must be valid packed number."
     },    
+    "EJECT": {
+        "prefix": "EJECT  (Assembler Directive)",
+        "body": [
+            "EJECT"
+        ],
+        "description": "EJECT (Assembler Directive)\nThe EJECT statement causes the assembly listing to skip to a new page. A symbolic name (label) can not be used with this instruction. Comments can not be used with the instruction.\n"
+    },    
+    "END": {
+        "prefix": "END  (Assembler Directive)",
+        "body": [
+            "END ${1:LABEL}"
+        ],
+        "description": "END (Assembler Directive)\nThe END instruction must be the last statement of an assembly language source program. This instruction tells the assembler that the assembly phase is terminated, and the computer may proceed to the link-edit phase. The symbolic name in the operand portion, if present, tells the assembler the location to which to pass control when the execution phase begins on the program. The operand usually contains the symbolic name of the first executable instruction of the program. Often the symbolic name (operand) matches the label (symbolic name) of the START instruction of the same program. The END instruction causes generation of the literal pool. Comments can not be used with the instruction.\n"
+    },
+    "EQU": {
+        "prefix": "EQU  (Assembler Directive)",
+        "body": [
+"\n${1:LABEL}    EQU  ${2:OP}"
+        ],
+        "description": "EQU (Assembler Directive)\nThe EQU instruction must have a label (symbolic name) starting at column 0. The instruction equates the label with the operand. The address, length, and value of the symbolic name equal are the same as those of the operand. The EQU statement creates an 'alias' for the address specified by the operand.\nEx:\nR4 EQU 4\nTAXES  EQU  T1040\nAn alias R4 can be used to refer to register 4. TAXES can be used to refer to T1040.\n"
+    },
     "IC": {
         "prefix": "IC",
         "body": [
@@ -319,9 +361,9 @@
     "ICM": {
         "prefix": "ICM",
         "body": [
-            "ICM  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${3|0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15|},${2:OP2}"
+            "ICM  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15|},${3:OP2}"
         ],
-        "description": "Insert Character Under Mask\nICM R1,M3,D2(B2) [RS-b]\n'BF' R1 M3 B2 D2\nLoads bytes into a register based on mask. OP1 is the register. OP2 is the data. OP3 is a mask (M3). Ex. a mask of 0110 will cause 2 bytes from stg specified in OP2 (starting from first byte) to be copied into the 2nd and 3rd byte of the register. The mask bits of 1 determines which bytes of the registers are affectd."
+        "description": "Insert Character Under Mask\nICM R1,M3,D2(B2) [RS-b]\n'BF' R1 M3 B2 D2\nLoads bytes into a register based on mask. OP1 is the register. OP2 is the data. OP3 is a mask (M3). Ex. a mask of 0110 will cause 2 bytes from stg specified in OP2 (starting from first byte) to be copied into the 2nd and 3rd byte of the register. The mask bits of 1 determines which bytes of the registers are affected.\nCondition Code:\n0 if all inserted bits = 0 or all bits in mask = 0\n1 if left-most inserted bit = 1\n2 if left-most inserted bit = 0, but not all other inserted bits = 0\n3 N/A\n"
     },    
     "L": {
         "prefix": "L",
@@ -373,11 +415,298 @@
         ],
         "description": "Multiply Fullword\nM R1,D2(X2,B2) [RX-a]\n'5C' R1 X2 B2 D2\nOP1 must be an even-numbered register in an even-odd pair, R1e,R1o.  R1o must contain the mutiplicand.  OP2 must be a fixed-point fullword containing the multiplier. R1o and OP2 are multiplied and result stored in R1e (R1o x OP2=R1e). The number of digits in the product = sum of digits in multiplier and multiplicand. So the even-odd pair of registers R1e,R1o form OP1, allowing for double-word long (8 bytes) product."
     },    
+    "MH": {
+        "prefix": "MH",
+        "body": [
+            "MH   ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Multiply Halfword\nMH R1,D2(X2,B2) [RX-a]\n'4C' R1 X2 B2 D2\nOP1 register is the multiplicand. OP2 must be a fixed-point halfword. After execution, product is placed in OP1 register. Zero is always positive. If largest negative numbers are multiplied, over flow occurs and sign bit may be incorrect."
+    },    
+    "MP": {
+        "prefix": "MP",
+        "body": [
+            "MP   ${1:OP1},${2:OP2}"
+        ],
+        "description": "Multiply Packed/Decimal\nMP D1(L1,B1),D2(L2,B2) [SS-b]\n'FC' L1 L2 B1 D1 B2 D2\nBoth OPs must be packed decimal. OP1 must be > OP2. OP1 must leading zeros equal in length in bytes of OP2. OP2 is the multipler, max length = 8 bytes (15 digts + 1 sign) and must be shorter than OP1. Product is placed in OP1, may not exceed 16 bytes."
+    },    
+    "MR": {
+        "prefix": "MR",
+        "body": [
+            "MR   ${1|R2,R4,R6,R8,R10,R12,R14,R0|},${2|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
+        ],
+        "description": "Multiply Register\nMR R1,R2 [RR]\n'1C' R1 R2\nOP1 register R1 must be an even-numbered regiser in an even-odd pair, R1e,R1o. R1o contains the multiplicand. OP2 register contains the multiplier. Product = R1o x OP1 register. The product is stored as doubleword in the even-odd register pairs R1e and R1o."
+    },        
     "MVC": {
         "prefix": "MVC",
         "body": [
             "MVC  ${1:OP1},${2:OP2}"
         ],
         "description": "Move Characters\nMVC D1(L,B1),D2(B2) [SS-a].\n'D2' L B1 D1 B2 D2\nCopies data from one field in main memory to another. Length of bytes moved is determined by OP1. Copies byte-by-byte, left to right from OP2 to OP1."
+    },
+    "MVCL": {
+        "prefix": "MVCL",
+        "body": [
+            "MVCL ${1|R2,R4,R6,R8,R10,R12,R14,R0|},${2|R4,R2,R6,R8,R10,R12,R14,R0|}"
+        ],
+        "description": "Move Long\nMVCL R1,R2 [RR]\n'0E' R1 R2\nOP1 and OP2 must both be even-numbered registers, in even-odd pairs, R1e,R1o and R2e,R2o. R1e contains address of OP1, R1o contains num of bytes in OP1 (bits 8-31).  R2e contains address of OP2, R2o contains number of bytes in OP2 (bits 8-31) and pad characters (bits 0-7).  If OP2 is shorter than OP1, OP2 is assumed to be right-filled with pad characters.  Movement starts left to right and ends when num of bytes in R1o have been moved. Destructive overlap not allowed."
+    },   
+    "MVI": {
+        "prefix": "MVI",
+        "body": [
+            "MVI  ${1:OP1},${2|C,F,X,Z,B,P|}'$0'"
+        ],
+        "description": "Move Immediate\nMVI D1(B1),I2 [SI]\n'92' I2 B1 D1\nOP2 provides 1 byte of data in the instruction itself to be copied into OP1. Operands are each 1 byte in length."
+    },      
+    "MVN": {
+        "prefix": "MVN",
+        "body": [
+            "MVN  ${1:OP1},${2:OP2}"
+        ],
+        "description": "Move Numeric\nMVN D1(L,B1),D2(B2) [SS-a]\n'D1' L B1 D1 B2 D2\nNumeric part (low order 4 bits) of each byte from OP2 is placed in the numeric part of the corresponding byte of OP1. Data is moved 1 byte at a time, left to right. Numeric part of leftmost (high-order) byte of OP2 is moved first. Zone part (high-order 4 bits) of each byte are unchanged. Max of 256 bytes may be moved. If OP2 is longer than OP1, low-order data from OP2 is lost. If OP2 is shorter, data continues to move beyond OP2."
+    },  
+    "MVO": {
+        "prefix": "MVO",
+        "body": [
+            "MVO  ${1:OP1},${2:OP2}"
+        ],
+        "description": "Move with Offset\nMVO D1(L1,B1),D2(L2,B2) [SS-b]\n'F1' L1 L2 B1 D1 B2 D2\nOP2 data is moved into OP1 starting with zone part of low-order byte. Move proceeds left byte-by-byte. Numeric part of OP1's low-order byte is unchanged, but the zone part gets the low-order numeric part of OP2. The zone part of OP2's low-order byte is moved to the numeric part of the byte to the left of OP1's low-order byte. Data moves left, shifting zone and numeric portion of OP2 a half-byte in OP1. If OP1 is longer, its high-order bytes are zero-filled as needed. If OP1 is shorter, left truncation occurs."
+    },    
+    "MVZ": {
+        "prefix": "MVZ",
+        "body": [
+            "MVZ  ${1:OP1},${2:OP2}"
+        ],
+        "description": "Move Zones\nMVZ D1(L,B1),D2(B2) [SS-a]\n'D3' L B1 D1 B2 D2\nZone part (high order 4 bits) of each bte from OP2 is placed in zone part of corresponding byte in OP1. Moves 1 byte at a time, left to right. Zone part of leftmost (high-order) byte of sending field is moved first. Numeric part (low-order 4 bits) of each byte are unchanged in both. Max of 256 bytes may be moved."
+    },    
+    "N": {
+        "prefix": "N",
+        "body": [
+            "N    ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "And Fullword\nN R1,D2(X2,B2) [RX-a]\n'54' R1 X2 B2 D2\nOP2 is the mask. Proceeds left to right, 1 bit at a time. Result of AND is stored in OP1 register. Usually used to turn bits off. Anding:\n1 and 1 = 1\n1 and 0 = 0\nCondition Codes:\n0 = results are all 0\n1 = results are not all 0\n2,3 not used\n"
+    },    
+    "NC": {
+        "prefix": "NC",
+        "body": [
+            "NC   ${1:OP1},${2:OP2}"
+        ],
+        "description": "And Character\nNC D1(L,B1),D2(B2) [SS-a]\n'D4' L B1 D1 B2 D2\nOP2 is the mask. Proceeds left to right, 1 bit at a time. Result of AND is stored in OP1 register. Usually used to turn bits off. Anding:\n1 and 1 = 1\n1 and 0 = 0\nCondition Codes:\n0 = results are all 0\n1 = results are not all 0\n2,3 not used\n"
+    },    
+    "NI": {
+        "prefix": "NI",
+        "body": [
+            "NI   ${1:OP1},${2|C,F,X,Z,B,P|}'$0'"
+        ],
+        "description": "And Immediate\nNI D1(B1),I2 [SI]\n'94' I2 B1 D1\nOP2 is the mask. Proceeds left to right, 1 bit at a time. Result of AND is stored in OP1 register. Usually used to turn bits off. Anding:\n1 and 1 = 1\n1 and 0 = 0\nCondition Codes:\n0 = results are all 0\n1 = results are not all 0\n2,3 not used\n"
+    },    
+    "NOP": {
+        "prefix": "NOP",
+        "body": [
+            "NOP  ${1:OP1}"
+        ],
+        "description": "No Operation (Extended BC)\nNOP D2(X2,B2)\n47 M1 X2 B2 D2\nEquivalent to BC 0,OP1 where no branch is taken. NOPR is similar except OP1 is a register."
+    },        
+    "NOPR": {
+        "prefix": "NOPR",
+        "body": [
+            "NOPR ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
+        ],
+        "description": "No Operation (Extended BCR)\nNOPR D2(X2,B2)\n07 M1 R2\nEquivalent to BC 0,OP1 where no branch is taken."
+    },        
+    "NR": {
+        "prefix": "NR",
+        "body": [
+            "NR   ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
+        ],
+        "description": "And Register\nNR R1,R2 [RR]\n'14' R1 R2\nOP2 is the mask. Proceeds left to right, 1 bit at a time. Result of AND is stored in OP1 register. Usually used to turn bits off. Anding:\n1 and 1 = 1\n1 and 0 = 0\nCondition Codes:\n0 = results are all 0\n1 = results are not all 0\n2,3 not used\n"
+    },    
+    "O": {
+        "prefix": "O",
+        "body": [
+            "O    ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "OR Fullword\nO R1,D2(X2,B2) [RX-a]\n'56' R1 X2 B2 D2\nOP2 is the instruction mask. Proceeds left to right, 1 bit at a time. Result placed in OP1. Usually used to turn bits ON.\n1 or 1 = 1\n1 or 0 = 1\n0 or 0 = 0\nCondition Codes:\n0 = results are all 0\n1 = results are not all 0\n2,3 not used\n"
+    },    
+    "OC": {
+        "prefix": "OC",
+        "body": [
+            "OC   ${1:OP1},${2:OP2}"
+        ],
+        "description": "OR Character\nOC D1(L,B1),D2(B2) [SS-a]\n'D6' L B1 D1 B2 D2\nOP2 is the instruction mask. Proceeds left to right, 1 bit at a time. Result placed in OP1. Usually used to turn bits ON.\n1 or 1 = 1\n1 or 0 = 1\n0 or 0 = 0\nCondition Codes:\n0 = results are all 0\n1 = results are not all 0\n2,3 not used\n"
+    },        
+    "OI": {
+        "prefix": "OI",
+        "body": [
+            "OI   ${1:OP1},${2|C,F,X,Z,B,P|}'$0'"
+        ],
+        "description": "OR Immediate\nOI D1(B1),I2 [SI]\n'96' I2 B1 D1\nOP2 is the instruction mask. Proceeds left to right, 1 bit at a time. Result placed in OP1. Usually used to turn bits ON.\n1 or 1 = 1\n1 or 0 = 1\n0 or 0 = 0\nCondition Codes:\n0 = results are all 0\n1 = results are not all 0\n2,3 not used\n"
+    },        
+    "OR": {
+        "prefix": "OR",
+        "body": [
+            "OR   ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
+        ],
+        "description": "OR Register\nOI D1(B1),I2 [SI]\n'96' I2 B1 D1\nOP2 is the instruction mask. Proceeds left to right, 1 bit at a time. Result placed in OP1. Usually used to turn bits ON.\n1 or 1 = 1\n1 or 0 = 1\n0 or 0 = 0\nCondition Codes:\n0 = results are all 0\n1 = results are not all 0\n2,3 not used\n"
+    },        
+    "PACK": {
+        "prefix": "PACK",
+        "body": [
+            "PACK ${1:OP1|},${2:OP2}"
+        ],
+        "description": "Pack\nPACK D1(L1,B1),D2(L2,B2) [SS-b]\n'F2' L1 L2 B1 D1 B2 D2\nUsed to convert character data or zoned decimal data to packed decimal format.   It strips off the zone digits from the character numbers, except for the last byte (the low order byte) which has its digits flipped in the result field. Flip,Strip and Trunc/Pad. OP2 assumed zoned. Low-order byte of OP2 is flipped. Numeric part of remaining bytes are moved into adjacent nibbles in OP1, from right to left. Max length of both OP is 16 bytes."
+    },    
+    "S": {
+        "prefix": "S",
+        "body": [
+            "S    ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Subtract Fullword (Binary Math)\nS R1,D2(X2,B2) [RX-a]\n'5B' R1 X2 B2 D2\nContents of both OP are treated as binary numbers. OP2 must be a fixed-point fullword. Contents of OP2 are subtracted from contents of OP1 register. Difference is stored in OP1 register.\nCondition Code:\n0 if diff = 0\n1 if diff < 0\n2 if diff > 0\n3 if overflow occurs\n"
+    },    
+    "SH": {
+        "prefix": "SH",
+        "body": [
+            "SH   ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Subtract Halfword (Binary Math)\nSH R1,D2(X2,B2) [RX-a]\n'4B' R1 X2 B2 D2\nContents of both OP are treated as binary numbers. OP2 must be a fixed-point halfword. Contents of OP2 are subtracted from contents of OP1 register. Difference is stored in OP1 register.\nCondition Code:\n0 if diff = 0\n1 if diff < 0\n2 if diff > 0\n3 if overflow occurs\n"
+    },    
+    "SLA": {
+        "prefix": "SLA",
+        "body": [
+            "SLA  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Shift Left Single\nSLA R1,D2(B2) [RS-a]\n'8B' R1 B2 D2\nThis is an algebraic, not a logical shift. The 31-bit numeric part of OP1 register is shifted left by the number of bits specified by OP2 address. OP2 is not used as an address; the last 6 bits are used to indicate the amount to shift. Bits 12-25 of the instruction are ignored. The sign bit remains unchanged (it is not shifted, only 31 bits participate in the shift). Label used as OP2 will assemble but only low-order 6 bits are considered. The leftmost bits are tested and if a bit unlike the sign bit is shifted out, an overflow condition occurs. Zeroes are supplied to vacated bit positions on the right. Note that the 3rd operand of an RS instruction format is not used or coded in the SLA or coded.\nCondition Code:\n0 if result = 0\n1 if result < 0\n2 if result > 0\n3 if overflow occurs\n"
+    },    
+    "SLL": {
+        "prefix": "SLL",
+        "body": [
+            "SLL  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Shift Left Single Logical\nSLL R1,D2(B2) [RS-a]\n'89' R1 B2 D2\nNote that the 3rd operand of an RS instruction format is not used in the SLL or coded. Contents of the 32-bit long OP1 (one register)are shifted to the left by the number of bits specified by OP2 address. OP2 is not used as an address; the last 6 bits are used to indicate the amount to shift.  Bits 12-25 of the instruction are ignored. A label used as OP2 will assemble but only the low-order 6 bits are considered. The leftmost bits are shifted out of the register, are not tested and are lost. Zeroes are supplied to vacated bit positions. Condition Code is not set. Each shift position is equivalent to multiplying OP1 by a power of 2 as follows:\n1 position  - Multiply by 2 (2^1)\n2 positions - Multiply by 4 (2^2) \n3 positions - Multiply by 8 (2^3)\nAnd so on…\n"
+    },
+    "SP": {
+        "prefix": "SP",
+        "body": [
+            "SP   ${1:OP1},${2:OP2}"
+        ],
+        "description": "Subtract Packed/Decimal\nSP D1(L1,B1),D2(L2,B2) [SS-b]\n'FB' L1 L2 B1 D1 B2 D2\nContents of both operands must contain valid packed numbers. Both Ops may overlap in storage, if their low-order bytes coincide. Contents of OP2 location are subtracted from the contents of OP1 location. The difference is placed in OP1. The maximum length of either operand is 16 bytes. OP1 location must be large enough to hold the difference or a decimal overflow occurs and significant high-order digits may be lost. The sign of the difference is determined by rules of algebra.\nCondition Code:\n0 if diff = 0\n1 if diff < 0\n2 if diff > 0\n3 if Overflow occurs\n"
+    },
+    "SR": {
+        "prefix": "SR",
+        "body": [
+            "SR   ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|}"
+        ],
+        "description": "Subtract Register (Binary Math)\nSR R1,R2 [RR]\n'1B' R1 R2\nContents of both operands are treated as signed binary numbers. R1 and R2 may be the same register if the low-order bytes coincide. Value of the contents of OP2 R2 are subtracted from the value of the contents of OP1 R1. The difference is placed in OP1.\nCondition Code:\n0 if diff = 0\n1 if diff < 0\n2 if diff > 0\n3 if Overflow occurs\n"
+    },
+    "SRA": {
+        "prefix": "SRA",
+        "body": [
+            "SRA  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Shift Right Single\nSRA R1,D2(B2) [RS-a]\n'8A' R1 B2 D2\nThe 31-bit numeric part of OP1 register is shifted to the right by the number of bits specified by OP2 address. OP2 is not used as an address; the last 6 bits are used to indicate the amount to shift. Bits 12-25 of the instruction are ignored. The sign bit remains unchanged (it is not shifted thus only 31 bits participate in the shift). A label used as OP2 will assemble but only the low-order 6 bits are considered. The rightmost bits are shifted out of the register, are not tested and are lost. Bits equal to the sign are supplied to vacated bit positions.\nCondition Codes:\n0 if result = 0\n1 if result < 0\n2 if result > 0\n3 N/A\n"
+    },
+    "SRL": {
+        "prefix": "SRL",
+        "body": [
+            "SRL  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Shift Right Single Logical\nSRL R1,D2(B2) [RS-a]\n'88' R1 B2 D2\nNote the 3rd operand of an RS instruction format is not used in the SRL or coded. Contents of the 32-bit long OP1 (one register) are shifted to the right by the number of bits specified by OP2 address. OP2 is not used as an address; the last 6 bits are used to indicate the amount to shift. Bits 12-25 of the instruction are ignored. A label used as OP2 will assemble but only the low order 6 bits of the resulting address are considered. The rightmost bits of operand 1 are not tested and are lost once shifted out. Zeroes are supplied to vacated positions. The Condition Code is not set.\nEach shift position is equivalent to dividing OP1 by a power of 2 as follows:\n1 position - divide by 2 (2^1)\n2 positions - Divide by 4(2^2)\n3 positions - Divide by 8 (2^3)\nAnd so on…\n"
+    },
+    "SRP": {
+        "prefix": "SRP",
+        "body": [
+            "SRP  ${1:OP1},${2:OP2},${3|0,5,1,2,3,4,6,7,8,9|}"
+        ],
+        "description": "Shift and Round Packed/Decimal\nSRP D1(L1,B1),D2(B2),I3 [SS-c]\n'F0' L1 I3 B1 D1 B2 D2\nOP1 must contain a valid packed number. OP2 must contain a signed binary number in its low-order 6 bits. If the number is positive, it specifies a left shift. If the number is negative, it specifies a right shift. The third operand I3 is an integer specifying the rounding factor for a right shift, normally 0 or 5. Left shifts are not rounded. The maximum left shift is 31 digit positions. The maximum right shift is 32 digit positions. Decimal overflow occurs when significant (non-zero) high-order digits are shifted out during a left shift.Condition Codes:\n0 if shifted result = 0\n1 if shifted result < 0\n2 if shifted result > 0\n3 if overflow occurs\n"
+    },
+    "ST": {
+        "prefix": "ST",
+        "body": [
+            "ST   ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Store Fullword\nST R1,D2(X2,B2) [RX-a]\n'50' R1 X2 B2 D2\nOP1 is the sending field; OP2 is the receiving field. OP2 is an aligned fixed-point fullword. The contents of OP register R1 are copied into OP2. The condition codes is unchanged."
+    },
+    "STC": {
+        "prefix": "STC",
+        "body": [
+            "STC  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Store Character\nSTC R1,D2(X2,B2) [RX-a]\nSTC R1,D2(X2,B2) [RX-a]\nOP2 specifies 1 byte in storage. The low-order byte (bits 24-31) of the OP1 register R1 are stored in the byte specified by OP2. OP1 register R1 is unchanged. This is one of the few instructions where data is moved from the OP1 to OP2. The condition codes is unchanged."
+    },
+    "STCM": {
+        "prefix": "STCM",
+        "body": [
+            "STCM ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15|},${3:OP2}"
+        ],
+        "description": "Store Character Under Mask\nSTCM R1,M3,D2(B2) [RS-b]\n'BE' R1 M3 B2 D2\nThe M3 operand contains the instruction mask. The four (4) mask bits correspond one for one, left to right, with the four (4) bytes of the OP1 register R1. The field specified by OP2 is assumed to have one byte for each 1 in the mask. For example, a mask of '1110' implies a 3-byte field. Bytes from OP1 register which correspond to a 1 in the mask field specified by M3 are stored contiguously into the storage location specified by OP2. The condition codes remains unchanged."
+    },
+    "STH": {
+        "prefix": "STH",
+        "body": [
+            "STH  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Store Halfword\nSTH R1,D2(X2,B2) [RX-a]\n'40' R1 X2 B2 D2\nOP1 is the sending field; OP2 is the receiving field. OP2 is an aligned fixed-point halfword. Contents of the 2 low-order bytes of OP1 register R1 are copied (or stored) into halfword specified by OP2. The condition codes is unchanged.\n"
+    },
+    "STM": {
+        "prefix": "STM",
+        "body": [
+            "STM  ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${3:OP2}"
+        ],
+        "description": "Store Multiple\nSTM R1,R3,D2(B2) [RS-a]\n'90' R1 R3 B2 D2\nOP2 is the receiving field. Registers R1 through R3 are the sending registers. The sending registers can 'wrap around' from register 15 to register 0. OP2 is fullword aligned. Contents of the registers R1 through R3 are copied into successive fullwords starting with the address specified in OP2. The number of fullwords used will equal the number of registers between R1 and R3, inclusive. The condition code is unchanged.\n"
+    },
+    "TM": {
+        "prefix": "TM",
+        "body": [
+            "TM   ${1:OP1},${2|C,F,X,Z,B,P|}'$0'"
+        ],
+        "description": "Test Under Mask\nTM D1(B1),I2 [SI]\n'91' I2 B1 D1\nThe immediate operand I2 is used as an 8-bit instruction mask. OP1 is a 1-byte storage location. The 8-bit mask corresponds one-to-one with the eight (8) bits of the storage location specified by OP1. Only the bits in OP1 storage location which correspond to a 1 in the instruction mask (I2) are tested. Neither operand is changed as a result of this instruction.\nCondition Codes:\n0 if all selected bits = 0 or the mask bits are all 0\n1 if selected bits are mixed 0 and 1\n2 N/A\n3 if selected bits are all 1\n"
+    },
+    "TR": {
+        "prefix": "TR",
+        "body": [
+            "TR   ${1:OP1},${2:OP2}"
+        ],
+        "description": "Translate\nTR D1(L,B1),D2(B2) [SS-a]\n'DC' L B1 D1 B2 D2\nBytes of OP1 are used as an 8-bit argument to reference a list designated by OP2 address. The length in instruction (L) specifies the length of OP1. The list can be up to 256 bytes. Bytes of OP1 are translated one by one, left to right. Each OP1 (argument) byte is treated as an 8-bit unsigned binary integer and is used as a displacement within the list addressed by OP2. The byte located at the displacement given by the argument byte replaces the argument byte (OP1 byte.) The list is not altered unless an overlap occurs. If the operands overlap, the result is obtained by replacing each result (OP1) byte one by one from the list (OP2). The condition code is unchanged."
+    },
+    "UNPK": {
+        "prefix": "UNPK",
+        "body": [
+            "UNPK   ${1:OP1},${2:OP2}"
+        ],
+        "description": "Unpack\nUNPK D1(L1,B1),D2(L2,B2) [SS-b]\n'F3' L1 L2 B1 D1 B2 D2\nOP2 (sending) is assumed to be a packed number, but the operand is not checked. Overlapping fields are permitted. However, the low-order part of OP1 (receiving) must be to the right of the low-order position of OP2 minus two. If only one or two bytes are being unpacked, the low-order bytes may coincide. The data is moved from OP2 storage location to OP1 storage location and reformatted from packed decimal to zoned. The low-order byte of OP2 is flipped, that is the zone and numeric portions are swapped, into the low-order byte of OP1. Each digit of the remaining bytes is placed in the numeric portion of each byte in OP1. The zone portions of each byte in the receiving field is filled with a hex 'F'. Processing proceeded right to left. The max length of either operand is 16 bytes. If OP1 is longer than required to hold the reformatted data, the leftmost bytes will be filled with character 0 (hex'F0'). If OP1 is shorter than required to hold the reformatted data, the data will be truncated (cut off) on the left. The condition code is unchanged."
+    },
+    "X": {
+        "prefix": "X",
+        "body": [
+            "X    ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Exclusive OR Fullword\nX R1,D2(X2,B2) [RX-a]\n'57' R1 X2 B2 D2\nOP2 is the instruction mask. The operation proceeds left to right one bit at a time. The mask is unchanged by the instruction. The results of each comparison is placed in OP1 R1 as follows:\n1 xor 1 = 0\n1 xor 0 = 1\n0 xor 0 = 0\nInstruction is generally used to flip bits\nCondition Codes:\n0 if results are all = 0\n1 if results are not all = 0\n2 and 3 N/A\n"
+    },    
+    "XC": {
+        "prefix": "XC",
+        "body": [
+            "XC   ${1:OP1},${2:OP2}"
+        ],
+        "description": "Exclusive OR Character\nXC D1(L,B1),D2(B2) [SS-a]\n'D7' L B1 D1 B2 D2\nOP2 is the instruction mask. The operation proceeds left to right one bit at a time. The mask is unchanged by the instruction. The results of each comparison is placed in OP1 storage location as follows:\n1 xor 1 = 0\n1 xor 0 = 1\n0 xor 1 = 1\n0 xor 0 = 0\nInstruction is generally used to flip bits\nCondition Codes:\n0 if results are all = 0\n1 if results are not all = 0\n2 and 3 N/A\n"
+    },    
+    "XI": {
+        "prefix": "XI",
+        "body": [
+            "XI   ${1:OP1},${2|C,F,X,Z,B,P|}'$0'"
+        ],
+        "description": "Exclusive OR Immediate\nXI D1(B1),I2 [SI]\n'97' I2 B1 D1\nOP2 is the instruction mask. The operation proceeds left to right one bit at a time. The mask is unchanged by the instruction. The results of each comparison is placed in OP1 storage location as follows:\n1 xor 1 = 0\n1 xor 0 = 1\n0 xor 1 = 1\n0 xor 0 = 0\nInstruction is generally used to flip bits\nCondition Codes:\n0 if results are all = 0\n1 if results are not all = 0\n2 and 3 N/A\n"
+    },    
+    "XR": {
+        "prefix": "XR",
+        "body": [
+            "XR   ${1|R1,R0,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15|},${2:OP2}"
+        ],
+        "description": "Exclusive OR Register\nXR R1,R2 [RR]\n'17' R1 R2\nOP2 is the instruction mask. The operation proceeds left to right one bit at a time. The mask is unchanged by the instruction. The results of each comparison is placed in OP1 R1 as follows: :\n1 xor 1 = 0\n1 xor 0 = 1\n0 xor 1 = 1\n0 xor 0 = 0\nInstruction is generally used to flip bits\nCondition Codes:\n0 if results are all = 0\n1 if results are not all = 0\n2 and 3 N/A\n"
+    },    
+    "ZAP": {
+        "prefix": "ZAP",
+        "body": [
+            "ZAP  ${1|R2,R4,R6,R8,R10,R12,R14,R0|},${2:OP2}"
+        ],
+        "description": "Zero and Add Packed\nZAP D1(L1,B1),D2(L2,B2) [SS-b]\n'F8' L1 L2 B1 D1 B2 D2\nOP2 (sending field) must contain valid packed number prior to execution. The both OPs may overlap in storage, if the rightmost byte of OP1 coincides with or is to the right of the rightmost byte of OP2. OP1 (receiving field) does not have to be packed prior to execution. After execution it contains the same packed number as the sending field. If the receiving field is larger than the sending field, the leading bytes are fill with packed zeroes (x'00'). OP1 (receiving field) must be large enough to contain all the significant digits and the sign of OP2 location or a decimal overflow condition occurs. The max length of either operand is 16 bytes.\nCondition Codes:\n0 if the result = 0\n1 if the result < 0\n2 if the result > 0\n3 if overflow occurs\n "
     }
 }

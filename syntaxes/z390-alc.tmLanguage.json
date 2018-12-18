@@ -31,7 +31,7 @@
 				},
 				{
 					"name": "comment.line.z390-alc",
-					"begin": ";",
+					"begin": "\\*",
 					"end": "\\n"
 				}
 			]
@@ -43,12 +43,12 @@
 					"match": "\\b(?i:ds|dc)\\b"
 				},
 				{
-					"name": "keyword.control.z390-alc",
+					"name": "string.other.lua.z390-alc",
 					"match": "(?i:(?<=\\s)(?:equ|org|align|(de|un)?phase|csect|dsect|drop|eject|end|ltorg|opsyn|print|space|start|title|using)\\b)"
 				},
 				{
-					"name": "keyword.control.z390-alc",
-					"match": "(?i:(?<=\\s)(?:close|dcb|eqreg|slink|freemain|save|get|open|put|return|wto)\\b)"
+					"name": "keyword.control.z390-alc ",
+					"match": "(?i:(?<=\\s)(?:close|dcb|eqreg|slink|getmain|freemain|save|get|open|put|return|wto)\\b)"
 				},
 				{
 					"name": "string.other.lua.z390-alc",
@@ -76,6 +76,10 @@
 							"name": "support.type.register.z390-alc"
 						}
 					}
+				},
+				{
+					"name": "string.quoted.single.z390-alc",
+					"match": "(\\'.*\\')"
 				},
 				{
 					"name": "string.quoted.single.z390-alc",
@@ -149,7 +153,7 @@
 				},
 				{
 					"name": "keyword.mnemonic.z390-alc",
-					"match": "\\b(?i:a|ad|ah|ap|ar|b|bal|balr|bas|basr|bc|bcr|bct|bctr|br|c|ch|clc|clcl|cli|clm|cp|cr|cvb|cvd|d|dp|dr|ed|ic|icm|l|la|lh|lm|lr|ltr|m|mh|mp|mr|mvc|mvcl|mvi|mvn|mvo|mvz|n|nc|ni|nop|nopr|nr|o|oc|oi|or|pack|s|sh|sla|sll|sp|sr|sra|srl|srp|st|stc|stcm|sth|stm|tm|tr|unpk|x|xc|xi|xr|zap)\\b"
+					"match": "\\b(?i:a|ad|ah|ap|ar|b|bal|balr|bas|basr|bc|bcr|bct|bctr|bh|bl|be|bnh|bnl|bne|bp|bm|bz|bo|bnp|bnm|bnz|bno|br|c|ch|clc|clcl|cli|clm|cp|cr|cvb|cvd|d|dp|dr|ed|ic|icm|l|la|lh|lm|lr|ltr|m|mh|mp|mr|mvc|mvcl|mvi|mvn|mvo|mvz|n|nc|ni|nop|nopr|nr|o|oc|oi|or|pack|s|sh|sla|sll|sp|sr|sra|srl|srp|st|stc|stcm|sth|stm|tm|tr|unpk|x|xc|xi|xr|zap)\\b"
 				},
 				{
 					"name": "support.type.register.z390-alc",
@@ -173,7 +177,7 @@
 				},
 				{
 					"name": "constant.numeric.integer.hexadecimal.z390-alc",
-					"match": "([a-zA-Z])*,([a-zA-Z])*"
+					"match": "scott([a-zA-Z])*,([a-zA-Z])*"
 				},
 				{
 					"name": "constant.numeric.integer.hexadecimal.z390-alc",
